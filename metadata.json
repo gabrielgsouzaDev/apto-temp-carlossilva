@@ -1,0 +1,6 @@
+{
+  "name": "Carlos Silva - Apto Temporada Praia Grande",
+  "description": "Aluguel de temporada em Praia Grande (Vila Caiçara). Apartamento familiar direto com o proprietário Carlos Silva, 2 dormitórios, até 8 pessoas, garagem, piscina e nota 5.0 no Google Maps.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
