@@ -206,7 +206,36 @@ FONTES DOS DADOS REAIS DO CARLOS SILVA
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #256582 #f4ece1;
+}
+
+/* BARRA DE ROLAGEM PERSONALIZADA (COASTAL THEME) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f4ece1;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3ca2a8 0%, #256582 50%, #0f2b5c 100%);
+  border-radius: 9999px;
+  border: 2px solid #f4ece1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #e67e22 0%, #256582 50%, #091a38 100%);
+}
+
+/* SELECAO DE TEXTO PERSONALIZADA */
+::selection {
+  background: #0f2b5c;
+  color: #ffe17d;
+}
+
 body {
   font-family: var(--sans);
   color: var(--text-dark);
@@ -222,8 +251,45 @@ body {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 
+/* FEEDBACK TATIL & MICRO-INTERACOES NO CLIQUE */
+button,
+[role="button"],
+a,
+summary,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Animacao instantanea no clique para todos os botoes e controles */
+button:active,
+[role="button"]:active,
+.btn-wa:active,
+.btn-open-sim-modal:active,
+.sim-preset-chip:active,
+.sim-counter-btn:active,
+.sim-copy-btn:active,
+.btn-sim-wa-large:active,
+.sim-modal-close:active,
+.lightbox-close:active,
+.review-filter-btn:active,
+.video-audio-badge:active,
+.play-circle-btn:active,
+.desktop-floating-cta:active,
+.btn-guarantee-wa:active,
+.faq-summary:active,
+.room-card-media:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.08s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.sim-modal-close:active,
+.lightbox-close:active {
+  transform: scale(0.88) !important;
+}
+
 .container {
-  width: min(1160px, 100% - 40px);
+  width: min(1160px, 100% - 32px);
   margin-inline: auto;
 }
 
@@ -240,13 +306,19 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 1.05rem 1.85rem;
   border-radius: 9999px;
   box-shadow: 0 10px 25px -6px rgba(18, 140, 74, 0.6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 .btn-wa:hover {
   background: var(--wa-green-hover);
   transform: translateY(-2px);
   box-shadow: 0 16px 32px -6px rgba(18, 140, 74, 0.75);
+}
+.btn-wa:active {
+  transform: scale(0.96) translateY(1px) !important;
+  box-shadow: 0 4px 12px -2px rgba(18, 140, 74, 0.55) !important;
 }
 .btn-wa:focus-visible, a:focus-visible, button:focus-visible {
   outline: 3px solid var(--gold-sun);
@@ -316,6 +388,13 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .header-badge .stars { color: #f59e0b; }
 
+@media (max-width: 480px) {
+  .top-header { padding: 0.85rem 0; }
+  .brand-lockup { font-size: 1rem; gap: 0.55rem; }
+  .brand-mini-logo { width: 36px; height: 36px; }
+  .header-badge { padding: 0.35rem 0.65rem; font-size: 0.75rem; gap: 0.3rem; }
+}
+
 /* HERO SECTION */
 .hero {
   position: relative;
@@ -384,12 +463,16 @@ img { max-width: 100%; height: auto; display: block; }
 .hero-seal-wrap {
   position: relative;
   justify-self: center;
-  width: min(340px, 80vw);
+  width: min(320px, 78vw);
   aspect-ratio: 1;
+  filter: drop-shadow(0 16px 36px rgba(15, 43, 92, 0.22));
+  margin-top: 1.2rem;
+  z-index: 6;
 }
 @media (min-width: 960px) {
   .hero-seal-wrap {
-    width: min(380px, 32vw);
+    width: min(370px, 30vw);
+    margin-top: 0;
   }
 }
 .seal-rotating-ring {
@@ -418,34 +501,43 @@ img { max-width: 100%; height: auto; display: block; }
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 24px 50px -12px rgba(15, 43, 92, 0.4);
-  transition: transform 0.3s ease;
+  box-shadow: 0 24px 50px -12px rgba(15, 43, 92, 0.38);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 2;
   display: block;
 }
 .hero-logo-img:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
-/* ANIMATED SUN */
+/* ANIMATED SUN (SOL TROPICAL NO HORIZONTE DO LITORAL) */
 .hero-sun {
   position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: 22%;
-  width: min(360px, 50vw);
+  bottom: clamp(14%, 18vh, 22%);
+  width: min(340px, 68vw);
   aspect-ratio: 1;
-  transform: translateX(-50%);
+  transform: translate(-50%, var(--sunScroll, 0px));
   border-radius: 50%;
   background: radial-gradient(circle at 50% 50%, #fff0b8 0%, #f7b733 40%, var(--orange-sun) 75%, rgba(230, 126, 34, 0.8) 100%);
   box-shadow: 0 0 90px 30px rgba(247, 183, 51, 0.45);
   animation: heroSunPulse 6s ease-in-out infinite alternate;
   will-change: transform;
 }
+@media (min-width: 960px) {
+  /* No desktop, o sol fica posicionado no horizonte centro-esquerda, iluminando o titulo e ondas sem colidir com a logo na coluna direita */
+  .hero-sun {
+    left: clamp(26%, 30vw, 34%);
+    bottom: clamp(18%, 23vh, 28%);
+    width: clamp(320px, 26vw, 380px);
+    box-shadow: 0 0 110px 42px rgba(247, 183, 51, 0.48);
+  }
+}
 @keyframes heroSunPulse {
-  0% { transform: translateX(-50%) translateY(0) scale(1); filter: brightness(1); }
-  100% { transform: translateX(-50%) translateY(-18px) scale(1.04); filter: brightness(1.1); }
+  0% { transform: translate(-50%, var(--sunScroll, 0px)) scale(1); filter: brightness(1); }
+  100% { transform: translate(-50%, calc(var(--sunScroll, 0px) - 16px)) scale(1.04); filter: brightness(1.1); }
 }
 
 /* ONDAS CONTINUAS */
@@ -1708,6 +1800,11 @@ footer .footer-brand {
 }
 .desktop-floating-cta:hover {
   transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(15, 43, 92, 0.25);
+}
+.desktop-floating-cta:active {
+  transform: scale(0.96) translateY(0) !important;
+  box-shadow: 0 6px 18px rgba(15, 43, 92, 0.15) !important;
 }
 .desktop-status-dot {
   width: 10px;
@@ -1735,13 +1832,19 @@ footer .footer-brand {
 }
 .faq-item {
   background: var(--sand-light);
-  border: 1px solid rgba(15, 43, 92, 0.08);
+  border: 1.5px solid rgba(15, 43, 92, 0.08);
   border-radius: 16px;
   overflow: hidden;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.faq-item:hover {
+  border-color: rgba(15, 43, 92, 0.2);
+  background: #ffffff;
 }
 .faq-item[open] {
   border-color: var(--gold-sun);
+  background: #ffffff;
+  box-shadow: 0 8px 24px -6px rgba(15, 43, 92, 0.08);
 }
 .faq-summary {
   padding: 1.25rem 1.6rem;
@@ -1754,24 +1857,34 @@ footer .footer-brand {
   align-items: center;
   justify-content: space-between;
   user-select: none;
+  transition: color 0.2s ease;
 }
 .faq-summary::-webkit-details-marker { display: none; }
 .faq-summary::after {
-  content: "+";
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--gold-sun);
-  transition: transform 0.2s ease;
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-right: 2.5px solid var(--gold-sun);
+  border-bottom: 2.5px solid var(--gold-sun);
+  transform: rotate(45deg);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 1rem;
+  flex-shrink: 0;
 }
 .faq-item[open] .faq-summary::after {
-  content: "x";
-  transform: rotate(45deg);
+  transform: rotate(-135deg);
 }
 .faq-body {
-  padding: 0 1.6rem 1.4rem;
+  padding: 0 1.6rem 1.45rem;
   color: var(--text-muted);
   font-size: 0.98rem;
-  line-height: 1.6;
+  line-height: 1.65;
+  animation: faqBodyFade 0.25s ease;
+}
+@keyframes faqBodyFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* LIGHTBOX MODAL */
@@ -2275,6 +2388,10 @@ footer .footer-brand {
 .btn-guarantee-wa:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+}
+.btn-guarantee-wa:active {
+  transform: scale(0.96) translateY(0) !important;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.25) !important;
 }
 .btn-guarantee-wa svg {
   width: 18px;
@@ -3366,7 +3483,7 @@ Carregando mensagem...
 
       if (heroSun && scrollY < window.innerHeight) {
         var sunOffset = scrollY * 0.22;
-        heroSun.style.transform = 'translateX(-50%) translateY(' + sunOffset + 'px)';
+        heroSun.style.setProperty('--sunScroll', sunOffset + 'px');
       }
 
       if (finalSection && duskSun) {
